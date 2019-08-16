@@ -14,10 +14,20 @@ namespace PathExercise
 
         }
 
+        public string getName()
+        {
+            return Name;
+        }
+
         public Product (string name, double price)
         {
             Name = name;
             Price = price;
+        }
+
+        public double getTotalPrice(int n)
+        {
+            return Price * n;
         }
     }
 }

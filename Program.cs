@@ -99,7 +99,7 @@ namespace PathExercise
                 Console.WriteLine();
                 Console.WriteLine("--- END OF DATA PROCCESSING ---");
                 Console.WriteLine();
-                
+
                 // writing each entry inside 'summary.csv' file
                 using (StreamWriter swTarget = File.AppendText(targetFile))
                 {
@@ -128,10 +128,12 @@ namespace PathExercise
                 Console.WriteLine("--- END OF FILE ---");
 
                 /*
-                 * Right now it is just printing onscreen:
                  * --- DATA PROCCESSING ---
                  * 
-                 * Name -> price x quantity = total amount (in BRL)
+                 * TV LED -> R$1290.99 x 1 = R$1290.99
+                 * Video Game Chair -> R$350.50 x 3 = R$1051.50
+                 * IPhone X -> R$900.00 x 2 = R$1800.00
+                 * Samsung Galaxy 9 -> R$850.00 x 2 = R$1700.00
                  * 
                  * --- END OF DATA PROCCESSING ---
                  * 
@@ -139,7 +141,10 @@ namespace PathExercise
                  * 
                  * --- OUTPUT (summary.csv) ---
                  * 
-                 * Name,Total vallue
+                 * TV LED,1290.99
+                 * Video Game Chair,1051.50
+                 * IPhone X,1800.00
+                 * Samsung Galaxy 9,1700.00
                  * 
                  * --- END OF FILE ---
                  */
@@ -150,10 +155,6 @@ namespace PathExercise
                 // IO error exception message
                 Console.WriteLine("An error ocurred!");
                 Console.WriteLine(e.Message);
-            }
-            finally
-            {
-                
             }
         }
     }

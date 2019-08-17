@@ -43,17 +43,20 @@ namespace PathExercise
                 }
 
                 // Now we read each stored line and proccess them accordingly
+                Console.WriteLine("--- DATA PROCCESSING ---");
+                Console.WriteLine();
+
                 foreach (string line in lines)
                 {
                     Console.WriteLine(line);
 
                     Product product = new Product();
 
+                    // variables needed to split each data from origin file
                     string[] words = new string[3];
                     int charAt = 0;
                     string word = null;
-                    string name = null;
-
+                    
                     // In here we split the whole line into data for later proccessing
                     do
                     {
@@ -88,13 +91,14 @@ namespace PathExercise
 
                     product.Name = words[0];
                     product.Price = double.Parse(words[1], CultureInfo.InvariantCulture);
-                    quantity = int.Parse(words[2]);
+                    product.Quantity = int.Parse(words[2]);
 
-                    Console.WriteLine(product.getTotalPrice(quantity));
-                    // Console.WriteLine(name + " -> R$" + price.ToString("F2", CultureInfo.InvariantCulture) + " x " + quantity + " = R$" + (price * quantity).ToString("F2", CultureInfo.InvariantCulture));
+                    Console.WriteLine(product.getTotalPrice().ToString("F2", CultureInfo.InvariantCulture));
+                    Console.WriteLine(product);
                     Console.WriteLine();
                 }
 
+                Console.WriteLine("--- END OF DATA PROCCESSING ---");
                 /*
                  * Right now it is just printing onscreen:
                  * Input (with a ',' in the end, to make the data process easier)

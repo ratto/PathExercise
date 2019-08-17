@@ -9,30 +9,30 @@ namespace PathExercise
     {
         public string Name { get; set; }
         public double Price { get; set; }
+        public int Quantity { get; set; }
 
         public Product()
         {
 
         }
 
-        public Product (string name, double price)
+        public double getTotalPrice()
         {
-            Name = name;
-            Price = price;
+            return Price * Quantity;
         }
 
-        public string getTotalPrice(int n)
+        public override string ToString()
         {
-            double total = Price * n;
+            double total = Price * Quantity;
 
             StringBuilder sb = new StringBuilder();
             sb.Append(Name);
             sb.Append(" -> R$");
             sb.Append(Price.ToString("F2", CultureInfo.InvariantCulture));
             sb.Append(" x ");
-            sb.Append(n);
+            sb.Append(Quantity);
             sb.Append(" = R$");
-            sb.Append(total.ToString("F2", CultureInfo.InvariantCulture));
+            sb.Append(getTotalPrice().ToString("F2", CultureInfo.InvariantCulture));
 
             return sb.ToString();
         }

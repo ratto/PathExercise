@@ -11,7 +11,6 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Globalization;
-using PathExercise;
 
 namespace PathExercise
 {
@@ -22,71 +21,85 @@ namespace PathExercise
             string originPath = @"d:\Temp\PathExercise";
             FileStream fs = null;
             StreamReader sr = null;
+            List<string> lines = new List<string>();
 
             try
             {
                 // let's open the origin file
                 fs = new FileStream(originPath + @"\origin.csv", FileMode.Open);
                 sr = new StreamReader(fs);
-                int charAt = 0;
-                string[] words = new string[3];
-                string word = null;
-                string name = null;
+                
+
+
                 double price = 0.00;
                 int quantity = 0;
                 char currentChar = '0';
 
-                string line = sr.ReadLine() + ",";
-                Console.WriteLine(line);
-
-                // Now let's split the whole line into smaller pieces
-                do
+                // We read the file and store each of it's line in lines list
+                while (!sr.EndOfStream)
                 {
-                    currentChar = line[charAt];
-                    if (currentChar != ',')
+                    string line = sr.ReadLine() + ",";
+                    lines.Add(line);
+                }
+
+                // Now we read each stored line and proccess them accordingly
+                foreach (string line in lines)
+                {
+                    Console.WriteLine(line);
+
+                    Product product = new Product();
+
+                    string[] words = new string[3];
+                    int charAt = 0;
+                    string word = null;
+                    string name = null;
+
+                    // In here we split the whole line into data for later proccessing
+                    do
                     {
-                        Console.WriteLine(currentChar + @" -> " + charAt);
-                        word += currentChar;
-                        charAt++;
-                    }
-                    else
-                    {
-                        if (words[0] == null)
+                        currentChar = line[charAt];
+                        if (currentChar != ',')
                         {
-                            words[0] = word;
-                            word = null;
-                        }
-                        else if (words[1] == null)
-                        {
-                            words[1] = word;
-                            word = null;
+                            word += currentChar;
+                            charAt++;
                         }
                         else
                         {
-                            words[2] = word;
-                            word = null;
+                            if (words[0] == null)
+                            {
+                                words[0] = word;
+                                word = null;
+                            }
+                            else if (words[1] == null)
+                            {
+                                words[1] = word;
+                                word = null;
+                            }
+                            else
+                            {
+                                words[2] = word;
+                                word = null;
+                            }
+
+                            charAt++;
                         }
-
-                        charAt++;
                     }
+                    while (charAt < line.Length);
+
+                    product.Name = words[0];
+                    product.Price = double.Parse(words[1], CultureInfo.InvariantCulture);
+                    quantity = int.Parse(words[2]);
+
+                    Console.WriteLine(product.getTotalPrice(quantity));
+                    // Console.WriteLine(name + " -> R$" + price.ToString("F2", CultureInfo.InvariantCulture) + " x " + quantity + " = R$" + (price * quantity).ToString("F2", CultureInfo.InvariantCulture));
+                    Console.WriteLine();
                 }
-                while (charAt < line.Length);
-                Console.WriteLine();
 
-                name = words[0];
-                price = double.Parse(words[1], CultureInfo.InvariantCulture);
-                quantity = int.Parse(words[2]);
-
-                Console.WriteLine(name + " -> " + price.ToString() + " x " + quantity.ToString() + " = " + (price * quantity), "F2", CultureInfo.InvariantCulture);
-                
                 /*
-                // the file has some lines, so let's print them on screen to check if everything is working as expected
-                while (!sr.EndOfStream)
-                {
-                    string line = sr.ReadLine();
-                    Console.WriteLine(line);
-                }
-                */
+                 * Right now it is just printing onscreen:
+                 * Input (with a ',' in the end, to make the data process easier)
+                 * Name -> price x quantity = total amount (in BRL)
+                 */
             }
             catch (IOException e)
             {

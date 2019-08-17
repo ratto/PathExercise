@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace PathExercise
 {
     class Product
     {
-        private string Name { get; set; }
-        private double Price { get; set; }
+        public string Name { get; set; }
+        public double Price { get; set; }
 
         public Product()
         {
 
-        }
-
-        public string getName()
-        {
-            return Name;
         }
 
         public Product (string name, double price)
@@ -25,9 +21,20 @@ namespace PathExercise
             Price = price;
         }
 
-        public double getTotalPrice(int n)
+        public string getTotalPrice(int n)
         {
-            return Price * n;
+            double total = Price * n;
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append(Name);
+            sb.Append(" -> R$");
+            sb.Append(Price.ToString("F2", CultureInfo.InvariantCulture));
+            sb.Append(" x ");
+            sb.Append(n);
+            sb.Append(" = R$");
+            sb.Append(total.ToString("F2", CultureInfo.InvariantCulture));
+
+            return sb.ToString();
         }
     }
 }
